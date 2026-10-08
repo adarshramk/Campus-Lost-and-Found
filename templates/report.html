@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Report Item · Campus Lost & Found{% endblock %}
+{% block content %}
+<div class="form-card wide">
+    <h1>Report an item</h1>
+    <p class="muted">Give enough detail for another student to recognize it.</p>
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="two-col">
+            <label>Report type
+                <select name="item_type" required>
+                    <option value="Lost">I lost this item</option>
+                    <option value="Found">I found this item</option>
+                </select>
+            </label>
+            <label>Category
+                <select name="category" required>
+                    {% for c in ["Electronics", "Documents", "Keys", "Wallet", "Bag", "Clothing", "Books", "Other"] %}
+                        <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <label>Item name
+            <input type="text" name="title" placeholder="e.g. Black HP laptop charger" maxlength="150" required>
+        </label>
+
+        <label>Description
+            <textarea name="description" rows="5" placeholder="Mention color, brand, identifying marks, etc." required></textarea>
+        </label>
+
+        <label>Location
+            <input type="text" name="location" placeholder="e.g. Library, Block B" maxlength="150" required>
+        </label>
+
+        <label>Photo (optional)
+            <input type="file" name="image" accept=".png,.jpg,.jpeg,.gif,.webp">
+        </label>
+
+        <button class="btn full" type="submit">Publish report</button>
+    </form>
+</div>
+{% endblock %}

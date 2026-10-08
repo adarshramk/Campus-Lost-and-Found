@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Register · Campus Lost & Found{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h1>Create account</h1>
+    <p class="muted">Use your college email if your campus requires it.</p>
+    <form method="post">
+        <label>Name
+            <input type="text" name="name" required maxlength="100">
+        </label>
+        <label>Email
+            <input type="email" name="email" required maxlength="120">
+        </label>
+        <label>Password
+            <input type="password" name="password" required minlength="6">
+        </label>
+        <button class="btn full" type="submit">Register</button>
+    </form>
+    <p class="form-footer">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+{% endblock %}

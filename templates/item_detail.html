@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} · Campus Lost & Found{% endblock %}
+{% block content %}
+<a class="back" href="{{ url_for('index') }}">← Back to reports</a>
+
+<div class="detail">
+    <div>
+        {% if item.image %}
+            <img class="detail-image" src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.title }}">
+        {% else %}
+            <div class="detail-image placeholder">No image</div>
+        {% endif %}
+    </div>
+
+    <div class="detail-info">
+        <div class="tags">
+            <span class="tag {{ item.item_type|lower }}">{{ item.item_type }}</span>
+            <span class="tag">{{ item.category }}</span>
+            <span class="tag">{{ item.status }}</span>
+        </div>
+        <h1>{{ item.title }}</h1>
+        <p>{{ item.description }}</p>
+
+        <div class="info-box">
+            <strong>Location</strong>
+            <span>📍 {{ item.location }}</span>
+        </div>
+        <div class="info-box">
+            <strong>Reported by</strong>
+            <span>{{ item.owner.name }} · {{ item.owner.email }}</span>
+        </div>
+        <div class="info-box">
+            <strong>Reported</strong>
+            <span>{{ item.created_at.strftime("%d %b %Y, %I:%M %p") }}</span>
+        </div>
+
+        {% if current_user and current_user.id == item.user_id and item.status == "Active" %}
+        <form method="post" action="{{ url_for('resolve_item', item_id=item.id) }}">
+            <button class="btn" type="submit">Mark as resolved</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
